@@ -1,16 +1,16 @@
 from sklearn.model_selection import cross_val_score
 from sklearn import svm
-import helpers
+import dataset
 
 
 """Runs k-fold validation on the dataset using the specified params"""
 def run_kfold(gamma='auto', kernel='linear', C=1.0, k=3):
     print 'Running k-fold cross-validation for mushroom dataset'
-    print 'Kernel: %s, C: %0.1f, for %d number of folds' % (kernel, C, k)
+    print 'Kernel: %s, C: %0.1f, gamma: %s, for %d folds' % (kernel, C, str(gamma), k)
     print 'Processing...'
 
     # Get dataset
-    data, target = helpers.load_dataset()
+    data, target = dataset.load_dataset()
     clf = svm.SVC(gamma=gamma, kernel=kernel, C=C)
 
     # Use k-fold validation to get accuracy of the model.

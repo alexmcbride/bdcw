@@ -1,11 +1,11 @@
 from sklearn import svm
-import helpers
+import dataset
 
 
 """Runs SVM and prints out number of correct predictions"""
 def run_svm(num_testing=1428):
     # Get dataset and split into training/testing
-    data, target = helpers.load_dataset()
+    data, target = dataset.load_dataset()
 
     # Split into training and testing.
     testing_data = data[-num_testing:]
