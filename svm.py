@@ -14,7 +14,7 @@ def run_svm(num_testing=1428):
     target = target[:-num_testing]
 
     # Create SVC and fit data.
-    clf = svm.SVC(gamma='auto', kernel='linear', C=10.0)
+    clf = svm.SVC(gamma='auto', kernel='rbf', C=10.0)
     clf.fit(data, target)
 
     # Get predictions
