@@ -14,7 +14,7 @@ def run_svm(gamma='auto', kernel='rbf', C=1.0, num_testing=1428):
     target = target[:-num_testing]
 
     # Create SVC
-    print 'Creating SVC model (gamma: %s, kernel: %s, C: %.1f)' % (gamma, kernel, C)    
+    print 'Creating SVC model (gamma: %s, kernel: %s, C: %.1f)' % (str(gamma), kernel, C)    
     clf = svm.SVC(gamma=gamma, kernel=kernel, C=C)
 
     # Fit data
@@ -29,4 +29,4 @@ def run_svm(gamma='auto', kernel='rbf', C=1.0, num_testing=1428):
 
 
 if __name__ == '__main__':
-    run_svm(kernel='rbf', C=10.0, num_testing=1428)
+    run_svm(gamma=0.01, kernel='rbf', C=10.0, num_testing=1428)

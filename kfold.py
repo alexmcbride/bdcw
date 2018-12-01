@@ -16,5 +16,5 @@ def run_kfold(gamma='auto', kernel='linear', C=1.0, k=3):
     print 'Accuracy: %0.2f (+/- %0.2f)' % (scores.mean(), scores.std() * 2)
 
 if __name__ == '__main__':
-    run_kfold(kernel='rbf', C=10.0, k=10)
+    run_kfold(gamma=0.01, kernel='rbf', C=10.0, k=10)
                                                         
