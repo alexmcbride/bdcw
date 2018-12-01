@@ -27,6 +27,16 @@ def load_dataset():
     return (data, target)
 
 
+"""Generates all the CSV files used to make excel charts"""
+def generate_charts():
+    df = pd.read_csv('mushroom.csv')
+    columns = df.columns.values
+    for column in columns:
+        output = get_counts_csv(column)
+        with open('charts/%s.csv' % (column), 'w') as f:
+            f.write(output)
+
+
 """Helper that prints out a CSV of attribute values, that can then be used to generate charts in Excel"""
 def get_counts_csv(attribute='cap-shape', drop_missing=False):
     data = pd.read_csv('mushroom.csv')
@@ -34,17 +44,33 @@ def get_counts_csv(attribute='cap-shape', drop_missing=False):
         data.dropna(inplace=True)
     p = dict(data[data['Class'] == 'p'][attribute].value_counts().iteritems())
     e = dict(data[data['Class'] == 'e'][attribute].value_counts().iteritems())
-    print 'Name,Poisonous,Edible'
+    output = 'Name,Poisonous,Edible\n'
     used = []
     for label, count in p.iteritems():
         e_count = e.get(label)
-        print '%s,%d,%d' % (label, count, e_count if e_count else 0)
+        output += '%s,%d,%d\n' % (label, count, e_count if e_count else 0)
         used.append(label)
     for label, count in e.iteritems():
         if label not in used:
             p_count = p.get(label)
-            print '%s,%d,%d' % (label, p_count if p_count else 0, count)
+            output += '%s,%d,%d\n' % (label, p_count if p_count else 0, count)
+    return output
+
+
+def stuff():
+    df = pd.read_csv('mushroom.csv')
+
+    # Remove records with missing values
+    df.dropna(inplace=True)
+
+    df = df.drop(columns=['Class'])
+
+    df = pd.get_dummies(df)
+
+    print df.head()
 
 
 if __name__ == '__main__':
-    get_counts_csv()
+    # generate_charts()
+    stuff()
+
