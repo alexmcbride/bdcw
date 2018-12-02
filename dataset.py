@@ -31,7 +31,7 @@ def load_dataset():
     with open('data', 'rb') as file:
         df = pickle.load(file)
 
-        # Get target data
+        # Get testing data
         y = np.ravel(df['Class_p'])
 
         # Get rid of class from training data
