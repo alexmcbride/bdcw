@@ -35,11 +35,13 @@ def clean_dataset():
     # Convert from categorical to numerical
     df = pd.get_dummies(df)
 
-    # Save to disk
-    print 'Saving cleaned dataset to disk'
-    with open('data', 'wb') as file:
-        pickle.dump(df, file)
-    print 'Done!'
+    print df.head()
+
+    # # Save to disk
+    # print 'Saving cleaned dataset to disk'
+    # with open('data', 'wb') as file:
+    #     pickle.dump(df, file)
+    # print 'Done!'
 
 
 """Loads pickled dataset and returns X (training) and y (testing) as a tuple"""
