@@ -5,7 +5,8 @@ import numpy as np
 import pickle
 
 
-"""Loads dataset, pre-processes it, then pickles it"""
+"""Loads dataset, pre-processes it, then pickles it. This should be run 
+first before any other scripts."""
 def clean_dataset():
     # Load CSV file.
     df = pd.read_csv('mushroom.csv')
@@ -19,16 +20,33 @@ def clean_dataset():
     # Remove columns not wanted in the data
     df = df.drop(columns=['veil-type'])
 
+    # Combine categories that comprise < 5% of total into single category labeled 'z'
+    columns = list(df.columns)
+    total = len(df.index)
+    for column in columns:
+        value_counts = df[column].value_counts()
+        combine = []
+        for label, count in value_counts.iteritems():
+            if count / (total / 100 ) < 5:
+                combine.append(label)
+        for label in combine:
+            df[column].replace(label, 'z', inplace=True)
+
     # Convert from categorical to numerical
     df = pd.get_dummies(df)
 
+    # Save to disk
+    print 'Saving cleaned dataset to disk'
     with open('data', 'wb') as file:
         pickle.dump(df, file)
+    print 'Done!'
 
 
-"""Loads pickled dataset and returns X and y as a tuple"""
+"""Loads pickled dataset and returns X (training) and y (testing) as a tuple"""
 def load_dataset():
+    # Open data file
     with open('data', 'rb') as file:
+        # Load data
         df = pickle.load(file)
 
         # Get testing data
@@ -41,4 +59,5 @@ def load_dataset():
 
 
 if __name__ == '__main__':
+    pass
     clean_dataset()
