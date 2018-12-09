@@ -6,7 +6,7 @@ import dataset
 """Runs k-fold validation on the dataset using the specified params"""
 def run_kfold(gamma='auto', kernel='linear', C=1.0, k=3):
     print 'Running k-fold cross-validation for mushroom dataset'
-    print 'Kernel: %s, C: %0.1f, gamma: %s, for %d folds' % (kernel, C, str(gamma), k)
+    print 'Kernel: %s, C: %0.1f, gamma: %s, folds: %d' % (kernel, C, str(gamma), k)
 
     # Get dataset
     X, y = dataset.load_dataset()
@@ -19,4 +19,3 @@ def run_kfold(gamma='auto', kernel='linear', C=1.0, k=3):
 
 if __name__ == '__main__':
     run_kfold(gamma=0.01, kernel='rbf', C=10.0, k=10)
-                                                        

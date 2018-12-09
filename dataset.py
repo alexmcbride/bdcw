@@ -26,6 +26,7 @@ def clean_dataset():
     for column in columns:
         value_counts = df[column].value_counts()
         combine = []
+        # Remove any with less than 5%.
         for label, count in value_counts.iteritems():
             if count / (total / 100 ) < 5:
                 combine.append(label)
@@ -35,13 +36,11 @@ def clean_dataset():
     # Convert from categorical to numerical
     df = pd.get_dummies(df)
 
-    print df.head()
-
-    # # Save to disk
-    # print 'Saving cleaned dataset to disk'
-    # with open('data', 'wb') as file:
-    #     pickle.dump(df, file)
-    # print 'Done!'
+    # Save to disk
+    print 'Saving cleaned dataset to disk'
+    with open('data', 'wb') as file:
+        pickle.dump(df, file)
+    print 'Done!'
 
 
 """Loads pickled dataset and returns X (training) and y (testing) as a tuple"""
@@ -61,5 +60,4 @@ def load_dataset():
 
 
 if __name__ == '__main__':
-    pass
     clean_dataset()
