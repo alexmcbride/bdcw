@@ -12,15 +12,16 @@ def run_svm(num_testing, gamma, kernel, C):
     test_X = X[-num_testing:]
     test_y = y[-num_testing:]
 
-    print 'Fitting model (training: %d, kernel: %s, gamma: %s, C: %.2f)' % (len(train_X) - num_testing, kernel, str(gamma), C)
+    # print 'Fitting model (training: %d, kernel: %s, gamma: %s, C: %.2f)' % (len(train_X) - num_testing, kernel, str(gamma), C)
     clf = svm.SVC(gamma=gamma, kernel=kernel, C=C)
     clf.fit(train_X, train_y)
 
-    print 'Testing predictions (testing: %d)' % ( num_testing)
+    # print 'Testing predictions (testing: %d)' % ( num_testing)
     predictions = clf.predict(test_X)
-    num_correct = sum(int(a == y) for a, y in zip(predictions, test_y))
+    predictions = zip(predictions, test_y)
+    num_correct = sum(int(a == y) for a, y in predictions)
 
-    print 'Results: %d/%d correct (%d%%)' % (num_correct, num_testing, num_correct / (num_testing / 100))
+    print 'Results: %d/%d correct (%.0f%%)' % (num_correct, num_testing, num_correct / (num_testing / 100.0))
 
 
 if __name__ == '__main__':
